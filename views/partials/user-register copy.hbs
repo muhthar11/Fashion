@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="h-100" style="background-color:#abc0ff">
+   <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card card-registration " style="transform: scale(0.8)">
+          <div class="row g-0">
+            <div class="col-lg-5 d-none d-xl-block">
+              <img src="/images/login and register/ragister.avif"
+                alt="Sample photo" class="img-fluid"
+                style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;" />
+            </div>
+            <div class="col-lg-7">
+             <div class="card-body p-4">
+              <h2 class="text-uppercase text-center mb-4">Create an account</h2>
+
+              <form  action="/getOtp" id="signUpForm" method="post" role="form">
+
+                <div class="form-outline mb-3">
+                  <label class="form-label" >Name</label>
+                  <input type="text" name="name"  class="form-control form-control-lg" required/>
+                </div>
+
+                <div class="form-outline mb-3">
+                  <label class="form-label" >Email</label> 
+                  <input type="email" name="email"  class="form-control form-control-lg" required/>
+
+                </div>
+
+                <div class="form-outline mb-3">
+                  <label class="form-label" >Mobile Number</label>
+                  <input type="number" name="mobileNo"  class="form-control form-control-lg" required/>
+                </div>
+
+                <div class="form-outline mb-3">
+                  <label class="form-label" >Password</label>
+                  <input type="password" name="password" id="password" class="form-control form-control-lg" required/>
+                </div>
+
+                {{#if err}}
+                    <p class="text-danger text-center mt-3 ">{{err}}</p>
+                  {{/if}} 
+
+                {{!-- <div class="form-check d-flex justify-content-center mb-5">
+                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
+                  <label class="form-check-label" for="form2Example3g">
+                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
+                  </label>
+                </div> --}}
+
+                <div class="d-flex justify-content-center mt-4 ">
+                  <button type="submit" 
+                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                </div>
+
+                <p class="text-center text-muted mt-4 mb-0">Have already an account? <a href="/login"
+                    class="fw-bold text-body"><u>Login here</u></a></p>
+
+              </form>
+
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script>
+      
+
+    $("#signUpForm").validate({
+        rules: {
+            name: {
+                required: true,
+                minlength: 2
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            mobileNo: {
+                required: true,
+                minlength: 10,
+                maxlength: 10
+            },
+            password: {
+                required: true,
+                minlength: 5
+            },
+        },
+        messages: {
+            name: {
+                required: "Please enter your name",
+                minlength: "Atleast 5 letters"
+            },
+            email: {
+                required: "Please enter your EmailID",
+                email: "Enter a valid Email ID"
+            },
+            mobileNo: {
+                required: "Please enter your Number",
+                minlength: "Minimum 10 numbers",
+                maxlength: "Maximum 10 numbers"
+            },
+            password: {
+                required: "Please enter your password",
+                minlength: "Minimum 5 charactor in Password"
+            },
+        }
+    });
+  </script>
+</body>
+</html>

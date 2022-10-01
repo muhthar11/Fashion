@@ -1,0 +1,123 @@
+<section>
+    <div class="breadcrumb-section breadcrumb-bg-color--golden">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row d-flex justify-content-evenly">
+                    {{#each coupons}}
+                            <div class="special-offer">
+                                <div class="special-offer__price">
+                                    <div class="special-offer__price__amount">
+                                        <div class="special-offer__price__amount__currency"><i class="bi bi-currency-rupee" ></i></div>
+                                        <div class="special-offer__price__amount__price">{{this.discountPrice}}</div><span>off</span>
+                                    </div>
+                                </div>
+                                <div class="special-offer__description">
+                                    <div class="special-offer__description__text">up to {{this.greaterThanPrice}}.</div>
+                                    <p class="special-offer__description__cta">{{this.coupon}}</p>
+                                    <div class="special-offer__description__logo"></div>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+
+.special-offer {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  padding: 1rem;
+  font-family: "Roboto", sans-serif;
+}
+.special-offer__price {
+  width: inherit;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background-color: #ea4c89;
+}
+.special-offer__price__text {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #ddd1d4;
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+.special-offer__price__amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+ .special-offer__price__amount__currency {
+  font-size: 2rem;
+}
+.special-offer__price__amount__price {
+  font-weight: 300;
+  font-size: 4rem;
+}
+.special-offer__description {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  background-color: #fff;
+}
+.special-offer__description__text {
+  padding: 2rem 1rem 0;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #9d969b;
+}
+.special-offer__description__indicator {
+  display: flex;
+  justify-content: center;
+}
+.special-offer__description__indicator__sign {
+  width: 10px;
+  height: 10px;
+  border: 3px solid #ddd1d4;
+  border-radius: 50%;
+}
+.special-offer__description__indicator__sign:not(:last-of-type) {
+  margin-right: 9px;
+}
+.special-offer__description__indicator__sign--active {
+  background-color: #ddd1d4;
+}
+.special-offer__description__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(20px);
+  padding: 15px 15px;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  letter-spacing: 2px;
+  background-color: #ffb234;
+  color: #fff;
+}
+.special-offer__description__logo {
+  position: absolute;
+  align-self: flex-end;
+  transform: translate(40px, 80px);
+  background: url(https://cdn.freebiesupply.com/logos/large/2x/dribbble-icon-1-logo-png-transparent.png) no-repeat center center;
+  background-size: cover;
+  height: 85px;
+  width: 85px;
+}
+</style>

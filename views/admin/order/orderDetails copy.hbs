@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+</head>
+<body>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12  my-5">
+        <div class="card">
+            <h5 class="card-header">Order Details</h5>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table-hover table-bordered first"  id="ordersTable">
+                        <thead>
+                            <tr>
+                                <th >Image</p></th>
+                                <th >Product Name</th>
+                                <th >Amount</th>
+                                <th >Status</th>
+                                <th >Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             {{#each order}}
+                                    <tr>
+                                        <td>
+                                            {{#each this.singleProdect}}
+                                                <img class="ms-5" style="width: 30px" src="/uploadImage/{{this.image.[0]}}" alt="loading image">
+                                                <td >{{this.productName}}</td>
+                                                  <input type="text" name="productId" id="productId" value="{{this.productId}}" hidden>
+                                            {{/each}}
+                                        </td>
+                                        <td ><i class="bi bi-currency-rupee" ></i>  {{this.singleProductPayPrice}}</td>
+                                        <td >
+                                            {{#each this.product.orderStatus}}
+                                                    {{this.status}}
+                                            {{/each}} 
+                                        </td>   
+                                        <td >
+                                            {{!-- <a href="/admin/getSingleOrder?orderId={{this._id}}&productId={{this.product.productId}}"
+                                               class="btn btn-md btn-primary" type="submit">Single Order Details</a> --}}
+                                                <button type="button" class="btn btn-primary mt-1 mb-3" data-bs-toggle="modal"
+                                                    onclick="getOrderStatus">
+                                                    Change Status
+                                                </button> 
+                                        </td>
+                                    </tr>
+                                {{/each}} 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <form  id="changeOrderStatus">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <input type="text" name="orderId" value="{{orderId}}" hidden>
+                         {{#each this.singleProdect}}
+                         <input type="text" name="productId" value="{{this.productId}}" hidden>
+                        {{/each}}
+                        <h5 class="modal-title" id="exampleModalLabel">Order Status</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12  col ">
+                            <div class="modal-body">
+                                <div class="col-lg-12 col ">
+                                    <label class="fw-bold">Order Status</label>
+                                    <select type="text" name="status" class="form-control">
+                                        <option selected>select order status</option>
+                                        {{#each orderStatus}}
+                                            {{#each order}}
+                                                <option value="{{this.orderStatus}}">{{this.orderStatus}}</option>
+                                            {{/each}}
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                {{!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Date</label>
+                                    <input type="datetime-local" class="form-control" placeholder="date"
+                                        name="date" required>
+                                </div> --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--Close Modal -->
+
+<script>
+   $(document).ready( function () {
+    $('#ordersTable').DataTable();
+} );
+
+function getOrderStatus(){
+  // productId = #productId.value;
+     console.log("productId=")
+   //await axios.get('/getOrderStatus', data).then((res)=>{
+   //         console.log("res=",res)
+   //})
+}
+</script>
+</body>
+</html>    
+    
+

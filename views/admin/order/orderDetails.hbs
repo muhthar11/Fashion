@@ -1,0 +1,239 @@
+<section>
+    <div class="container-fluid  dashboard-content">
+        <div class="row">
+             {{!-- <form  action="/saveOrder" method="post" role="form"> --}}
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <!-- ============================================================== -->
+                        <!-- order view section -->
+                        <!-- ============================================================== -->
+                        {{!-- <div class="card m-5 shadow-md  mb-5 bg-body rounded" > --}}
+                        
+                            <div class="card-body">
+                                    {{#each order}}
+                                        <div class="card  shadow-md p-2 mb-2 bg-body rounded" >
+                                            <div class="row ">
+
+                                                <div class="col-lg-1 col">
+                                                    {{#each this.singleProdect}}
+                                                    <a href="/getSingleProductView?productId={{this._id}}">
+                                                        <img class=" mb-4" style="width: 100px " src="/uploadImage/{{this.image.[0]}}" alt="loading image">
+                                                    </a>
+                                                    {{/each}}
+                                                </div>
+
+                                                <div class="col-lg-3 col ps-5">
+
+                                                    {{#each this.singleProdect}}
+                                                        <a href="/getSingleProductView?productId={{this._id}}" class="fw-bold"> {{this.productName}}</a>    
+                                                    {{/each}} 
+                                                    <div class="row">   
+                                                        <div class="col ">  
+                                                                order quantity :                  
+                                                                <a class="text-bold" style="position: absolute;" type="int" >{{this.product.productCount}}</a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">   
+                                                        <div class="col ">  
+                                                                price :<i class="bi bi-currency-rupee" ></i>                   
+                                                                <a class="text-bold" style="position: absolute;" type="int" >{{this.singleProductPayPrice}}</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">   
+                                                        <div class="col">  
+                                                                save price :<i class="bi bi-currency-rupee" ></i>                   
+                                                                <a class="text-bold" style="position: absolute;" type="int">{{this.singleProductSavePrice}}</a>
+                                                        </div>
+                                                    </div>
+                                                  {{#each this.singleProdect}}
+                                                    <button onclick="getChangeStatus('{{this._id}}')" class="btn btn-primary">
+                                                        Change Status
+                                                    </button> 
+                                                {{/each}}
+                                                </div>
+
+                                                   <div class="col-lg-8 col mt-4 ">
+                                                        <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">
+
+                                                            {{#each this.product.orderStatus}}
+                                                                <div class="timeline-step">
+                                                                    <div class="timeline-content" data-toggle="popover"
+                                                                        data-trigger="hover" data-placement="top" title=""
+                                                                        data-original-title="2003">
+                                                                        <div class="inner-circle"></div>
+                                                                        <p class="mt-3 mb-1">{{this.status}}</p>
+                                                                        <p class="text-muted mb-0 mb-lg-0">{{this.date}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            {{/each}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                                {{!-- <div class="col-lg-2 col">
+                                                    <a href="/deleteOrder?id={{this._id}}&productId={{this.product.productId}}" class="btn btn-block  btn-black-default-hover" 
+                                                        onclick="return confirm('Do you want to cancel this order?')" >Cancel Order
+                                                    </a>
+                                                </div> --}}
+                                        </div>
+                                    {{/each}}
+                            </div>
+                            
+                          {{!-- </div> --}}
+                        <!-- ============================================================== -->
+                        <!-- End order view section -->
+                        <!-- ============================================================== -->
+                    </div>
+                </div>
+             {{!-- </form> --}}
+        </div>
+  </div>
+      <!-- Modal -->
+    <form  id="changeOrderStatus">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <input type="text" name="orderId" id="orderId" value="{{orderId}}" hidden>
+                         {{!-- {{#each order}}
+                         <input type="text" name="productId" value="{{this.product.productId}}" hidden>
+                        {{/each}} --}}
+                        <h5 class="modal-title" id="exampleModalLabel">Order Status</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12  col ">
+                            <div class="modal-body">
+                                <div class="col-lg-12 col ">
+                                    <label class="fw-bold">Order Status</label>
+                                    <select type="text" name="status" id="status" class="form-control">
+                                        {{!-- <option selected>select order status</option>
+                                        {{#each orderStatus}}
+                                            <option value="{{this.orderStatus}}">{{this.orderStatus}}</option>
+                                        {{/each}} --}}
+                                    </select>
+                                </div>
+                                {{!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Date</label>
+                                    <input type="datetime-local" class="form-control" placeholder="date"
+                                        name="date" required>
+                                </div> --}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--Close Modal -->
+</section>
+
+<script src="https://unpkg.com/axios@0.25.0/dist/axios.min.js"></script>
+<script>
+ let body = {}
+async  function getChangeStatus(productId){
+   // productId = document.getElementById("productId").value
+    orderId = document.getElementById("orderId").value
+
+   body.productId =productId;
+    body.orderId = orderId
+    await axios.post('/admin/getOrderStatus', body).then((res)=>{
+        console.log("welcome=",res);
+        orderStatus = res.data
+        console.log("welcome=",orderStatus);
+        $('#exampleModal').modal('show');
+        var html = '';
+        html = '<option value="">Select subcategory</option>';
+
+       for(var count = 0; count < orderStatus.length; count++)
+        {
+            html += '<option value="'+orderStatus[count]+'">'+orderStatus[count]+'</option>';
+        }
+       document.getElementById("status").innerHTML = html;
+    })
+  }
+
+    $("#changeOrderStatus").submit(async(e) => {
+            e.preventDefault()
+            let data =  $('#changeOrderStatus').serialize();
+            console.log("welcome change order status=",data)
+            await axios.post('/admin/changeOrderStatus', data).then((res)=>{
+                location.reload();
+            })
+
+    })
+</script> 
+<style>
+    body{
+        padding: 0%;
+        margin: 0%;
+    }
+    .timeline-steps {
+        display: flex;
+        flex-wrap: wrap
+    }
+
+    .timeline-steps .timeline-step {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        margin: 0.4rem
+    }
+
+    @media (min-width:768px) {
+        .timeline-steps .timeline-step:not(:last-child):after {
+            content: "";
+            display: block;
+            border-top: .25rem dotted #3b82f6;
+            width: 3.46rem;
+            position: absolute;
+            left: 7.5rem;
+            top: .3125rem
+        }
+
+        .timeline-steps .timeline-step:not(:first-child):before {
+            content: "";
+            display: block;
+            border-top: .25rem dotted #3b82f6;
+            width: 3.8125rem;
+            position: absolute;
+            right: 7.5rem;
+            top: .3125rem
+        }
+    }
+
+    .timeline-steps .timeline-content {
+        width: 7rem;
+        text-align: center
+    }
+
+    .timeline-steps .timeline-content .inner-circle {
+        border-radius: 1rem;
+        height: 1rem;
+        width: 1rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #3b82f6
+    }
+
+    .timeline-steps .timeline-content .inner-circle:before {
+        content: "";
+        background-color: #abdff0;
+        display: inline-block;
+        height: 2rem;
+        width: 0rem;
+        min-width: 2rem;
+        border-radius: 6.25rem;
+        opacity: 0.5;
+    }
+</style>

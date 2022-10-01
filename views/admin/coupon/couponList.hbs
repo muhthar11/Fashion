@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+</head>
+<body>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12  my-5">
+         <form class="d-flex me-3 mb-2" action="/admin/getCouponDetails">
+          <button class="btn btn-primary text-white" type="submit">Add Coupon</button>
+        </form>
+        <div class="card">
+            <h5 class="card-header">Coupon List</h5>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table-hover table-bordered first"  id="productsTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Coupon</th>
+                                <th scope="col">Gtr Price</th>
+                                <th scope="col">Discount Price</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">Expiry Date</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                         <tbody>
+                                {{#each coupon}}
+                                    <tr>
+                                        <td >{{this.coupon}}</td>
+                                        <td ><i class="bi bi-currency-rupee" ></i>  {{this.greaterThanPrice}}</td>
+                                        <td ><i class="bi bi-currency-rupee" ></i>  {{this.discountPrice}}</td>
+                                        <td >{{this.startDate}}</td>
+                                         <td >{{this.expiryDate}}</td>
+                                        <td>
+                                            <a href="/admin/deleteCoupon?id={{this._id}}"  onclick="return confirm('are you want to delete ?')">
+                                            <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {{/each}} 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+   $(document).ready( function () {
+    $('#productsTable').DataTable();
+} );
+</script>
+</body>
+</html>    
+    
+

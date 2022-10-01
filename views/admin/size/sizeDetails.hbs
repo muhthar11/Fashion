@@ -1,0 +1,71 @@
+ <div class="dashboard-wrapper py-4">
+    <div class="container-fluid  dashboard-content">
+        <div class="row">
+            <!-- ============================================================== -->
+            <!-- validation form -->
+            <!-- ============================================================== -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
+                    <h5 class="card-header">Size Details</h5>
+                    
+                    <div class="card-body">
+                        <form action="/admin/size?id={{size._id}}" id="size" method="post" role="form"  >
+                        
+                            <div class="row">
+                                {{!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Category</label>
+                                    <select type="text" class="form-control" name="category" id="category" required>
+                                        <option selected >select category</option>
+                                        {{#each category}}
+                                            <option  value="{{this._id}}">{{this.categoryName}}</option>
+                                        {{/each}}
+                                    </select>    
+                                </div> --}}
+                                <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Size</label>
+                                    <input type="text" class="form-control" 
+                                        placeholder="size" name="size" value="{{size.size}}" required>
+                                </div>
+                                 <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Size Short Form</label>
+                                    <input type="text" class="form-control" 
+                                        placeholder="Short From" name="sizeShortFrom" value="{{size.size}}" required>
+                                </div>
+                               
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-5">
+                                    <button class="btn bg-primary" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end validation form -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+ </div>    
+ <script>
+
+
+    $("#size").validate({
+        rules: {
+            size: {
+                required: true,
+            },
+            sizeShortFrom: {
+                required: true,
+            },
+        },
+        messages: {
+            size: {
+                required: "Please enter size",
+            },
+            sizeShortFrom: {
+                required: "Please enter size short From",
+            }
+        }
+    });
+  </script>

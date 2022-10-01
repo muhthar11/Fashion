@@ -1,0 +1,190 @@
+ <div class="dashboard-wrapper  py-4">
+    <div class="container-fluid  dashboard-content">
+        <div class="row">
+            <!-- ============================================================== -->
+            <!-- validation form -->
+            <!-- ============================================================== -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
+                    <h5 class="card-header">ProductDetails</h5>
+                    
+                    <div class="card-body">
+                        <form action="/admin/product?id={{product._id}}" id="product"  method="post" role="form" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Product Name</label>
+                                    <input type="text" class="form-control" 
+                                        placeholder="Product Name" name="productName" value="{{product.productName}}" required>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Brand Name</label>
+                                    <input type="text" class="form-control"
+                                        placeholder="Brand name" name="brandName" value="{{product.brandName}}" required>
+                                </div>
+                                {{#if categoryCheck}}
+                                <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Category</label>
+                                    <input type="text" class="form-control" 
+                                        placeholder="Category Name" name="category" value="{{product.category}}" required>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Sub Category</label>
+                                    <input type="text" class="form-control"
+                                        placeholder="Sub Category name" name="subCategory" value="{{product.subCategory}}" required>
+                                </div>
+                                 {{else}}
+                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Category</label>
+                                    <select type="text" class="form-control" name="category" id="category" required>
+                                          <option selected >select category</option>
+                                          {{#each category}}
+                                              <option  value="{{this._id}}">{{this.categoryName}}</option>
+                                          {{/each}}
+                                    </select>    
+                                 </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Sub Category</label>
+                                    <select type="text" class="form-control" name="subCategory" id="subcategory" required>
+                                        <option selected >select category</option>
+                                    </select>    
+                                 </div>
+                                
+                                {{/if}}
+                                 <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Quantity</label>
+                                    <input type="number" class="form-control" 
+                                    placeholder="quantity" name="quantity" value="{{product.quantity}}" required>
+                                 </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Price</label>
+                                    <input type="text" class="form-control" 
+                                        placeholder="price"  name="price" value="{{product.price}}" required>
+                                </div>
+                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Offer Price</label>
+                                    <input type="text" class="form-control" 
+                                        placeholder="offerPrice"  name="offerPrice" value="{{product.offerPrice}}" >
+                                </div> 
+                                {{!--  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <label class="fw-bold">Size</label>
+                                </div>
+                                {{#each size}}
+                                    <div class="form-check form-check-inline ms-5 col-xl-1 col-lg-1 col-md-1 col-sm-12 col-12">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                        <label class="form-check-label" for="inlineCheckbox1">{{this.sizeShortFrom}}</label>
+                                    </div>
+                                {{/each}} --}}
+                             
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
+                                    <label for="exampleFormControlTextarea1"class="fw-bold">Description</label>
+                                    <textarea class="form-control" name="description"  value="{{product.description}}" rows="3"></textarea>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                    {{!-- <img class="mb-2" style="width: 150px;" src="/uploadImage/{{product.image}}"  alt="..." id="imgView" > --}}
+                                    <label class="fw-bold">Product Images</label>
+                                    <input type="file" class="form-control" placeholder="Product Image1" name="image" value="{{product.image}}" multiple >
+                                </div>
+                                
+                                <div class="form-row mt-4">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-5">
+                                        <a href="#">
+                                            <button class="btn bg-primary" type="submit">Save</button>
+                                        </a>
+                                    </div>  
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end validation form -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+ </div>    
+ <script>
+
+
+ function _(element)
+ {
+    return document.getElementById(element);
+ }
+
+function fetch_data(parent_element, child_element, type)
+{
+    fetch('/admin/getData?type='+type+'&parent_value='+parent_element.value+'').then(function(response){
+        return response.json(response);
+    }).then(function(responseData){
+
+        var html = '';
+
+        if(type == 'load_subcategory')
+        {
+            html = '<option value="">Select subcategory</option>';
+        }
+
+     
+        console.log("resp =",responseData);
+        for(var count = 0; count < responseData.length; count++)
+        {
+            html += '<option value="'+responseData[count]._id+'">'+responseData[count].subCategoryName+'</option>';
+        }
+
+        child_element.innerHTML = html;
+    });
+}
+
+_('category').onchange = function(){
+
+    fetch_data(_('category'), _('subcategory'), 'load_subcategory');
+
+};
+
+ // {{!-- ***** validation Start *****  --}}
+
+$("#product").validate({
+    rules: {
+        productName: {
+            required: true,
+        },
+        brandName: {
+            required: true,
+        },
+        category: {
+            required: true,
+        },
+        subCategory: {
+            required: true,
+        },
+        price: {
+            required: true,
+        },
+        description: {
+            required: true,
+        },
+    },
+    messages: {
+        productName: {
+            required: "Please enter your product name",
+        },
+        brandName: {
+            required: "Please enter your brand name",
+        },
+        category: {
+            required: "Please select your category",
+        },
+        subCategory: {
+            required: "Please select your sub category",
+        },
+        description: {
+            required: "Please enter your description",
+        },
+    }
+}); 
+// {{!-- ***** validation End *****  --}}
+</script>
+
+
+    

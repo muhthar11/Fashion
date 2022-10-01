@@ -1,0 +1,389 @@
+<section>
+    <div class="container-fluid  dashboard-content">
+        <div class="row">
+            <a class="d-flex m-5 me-3 mb-2" action="/getAddressPage?path=cart" role="form">
+                <button class="btn btn-primary text-white" type="submit">Add Address</button>
+            </a>
+            <form action="" id="checkOut-form" role="form">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+
+                        <!-- ============================================================== -->
+                        <!-- Address section -->
+                        <!-- ============================================================== -->
+                        <div class="card m-5 shadow-lg p-3 mb-5 bg-body rounded"
+                            style="height:250px ; overflow:scroll; overflow-x:hidden">
+
+                            <div class="card-body">
+                                {{#each address}}
+                                <div class="form-check">
+                                <input class="form-check-input" name="addressId" style="margin-top: 4px;"
+                                        type="radio" value="{{this._id}}">
+                                    <div class="card  shadow-lg p-3 mb-2 bg-body rounded">
+                                        <div class="row ">
+                                            <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12 ">
+                                                {{this.firstName}} {{this.lastName}}<br>
+                                                {{this.houseName}}<br>
+                                                {{this.roadName}}<br>
+                                                {{this.pincode}}<br>
+                                                {{this.district}}
+                                                {{this.state}}<br>
+                                                {{!-- <a href="/paymentMethod?addressId={{this._id}}"
+                                                    class="btn btn-warning text-white text-uppercases"
+                                                    type="submit">Deliver here</a> --}}
+                                            </div>
+                                            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                                                <a href="/getAddress?id={{this._id}}&path=cart"
+                                                    class="text-primary fw-bold">Edit</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/each}}
+                            </div>
+
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- End address section -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- order view section -->
+                        <!-- ============================================================== -->
+                        <div class="card m-5 shadow-lg p-3 mb-5 bg-body rounded"
+                            style="height:250px ; overflow:scroll; overflow-x:hidden">
+
+                            <div class="card-body">
+
+                                {{#if orderDetails.single}}
+
+                                <div class="card  shadow-lg p-3 mb-2 bg-body rounded">
+                                    <div class="row ">
+                                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                                            <a href="/getSingleProductView?productId={{this._id}}">
+                                                <img class="ms-2 mb-4" style="width: 50px "
+                                                    src="/uploadImage/{{singleProduct.image.[0]}}" alt="loading image">
+                                            </a>
+                                        </div>
+                                        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 ">
+
+                                            <a href="/getSingleProductView?productId={{singleProduct._id}}"
+                                                class="fw-bold"> {{singleProduct.productName}}</a>
+
+                                            <div class="row">
+                                                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 "> <i
+                                                        class="bi bi-currency-rupee"></i>
+                                                    <input class="text-danger text-decoration-line-through "
+                                                        style="position: absolute;" type="int"
+                                                        value="{{singleProduct.price}}">
+                                                </div>
+                                                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-2 col-12 "> <i
+                                                        class="bi bi-currency-rupee"></i>
+                                                    <input type="int" style="position: absolute;"
+                                                        value="{{singleProduct.offerPrice}}">
+                                                </div>
+                                            </div>
+
+                                            {{!-- <div class="row">
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-2 col-4 ">
+                                                    {{#if this.sub}}
+                                                    <a
+                                                        href="/subCount?count={{singleProduct.productCount}}&productId={{singleProduct.productId}}"><i
+                                                            class="bi bi-dash-circle"></i></a>
+                                                    {{/if}}
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-2 col-4 ">
+                                                    <input class="text-center" min="1" max="{{singleProduct.quantity}}"
+                                                        value="{{singleProduct.productCount}}">
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-2 col-4 ">
+                                                    <a
+                                                        href="/addCount?count={{singleProduct.productCount}}&productId={{singleProduct.productId}}"><i
+                                                            class="bi bi-plus-circle"></i></a>
+                                                </div>
+                                            </div>
+                                            <br>
+
+                                            <a href="/deleteCart?id={{singleProduct._id}}" class="text-danger "><i
+                                                    class="fa fa-trash-o"></i>remove</a> --}}
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                {{else}}
+                                {{#each cartProduct}}
+                                <div class="card  shadow-lg p-3 mb-2 bg-body rounded">
+                                    <div class="row ">
+
+                                        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                                            {{#each this.products}}
+                                            <a href="/getSingleProductView?productId={{this._id}}">
+                                                <img class="ms-2 mb-4" style="width: 75px "
+                                                    src="/uploadImage/{{this.image.[0]}}" alt="loading image">
+                                            </a>
+                                            {{/each}}
+                                        </div>
+
+                                        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 ">
+
+                                            {{#each this.products}}
+                                            <a href="/getSingleProductView?productId={{this._id}}" class="fw-bold">
+                                                {{this.productName}}</a>
+                                            {{/each}}
+
+                                            <div class="row">
+                                                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-12 "> <i
+                                                        class="bi bi-currency-rupee"></i>
+                                                    <input class="text-danger text-decoration-line-through "
+                                                        style="position: absolute;" type="int" value="{{this.price}}">
+                                                </div>
+                                                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-2 col-12 "> <i
+                                                        class="bi bi-currency-rupee"></i>
+                                                    <input type="int" style="position: absolute;"
+                                                        value="{{this.offerprice}}">
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-2 col-4 ">
+                                                    {{#if this.sub}}
+                                                    <a
+                                                        href="/subCount?count={{this.productCount}}&order=true&productId={{this.productId}}"><i
+                                                            class="bi bi-dash-circle"></i></a>
+                                                    {{/if}}
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-2 col-4 ">
+                                                    <input class="text-center" min="1" max="{{this.quantity}}"
+                                                        value="{{this.productCount}}">
+                                                </div>
+
+                                                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-2 col-4 ">
+                                                    <a
+                                                        href="/addCount?count={{this.productCount}}&order=true&productId={{this.productId}}"><i
+                                                            class="bi bi-plus-circle"></i></a>
+                                                </div>
+                                            </div>
+
+                                            <a href="/deleteCart?id={{this._id}}&order=true" class="text-danger "><i
+                                                    class="fa fa-trash-o"></i>remove</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                {{/each}}
+                                {{/if}}
+                            </div>
+
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- End order view section -->
+                        <!-- ============================================================== -->
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
+
+                        <!-- ============================================================== -->
+                        <!-- Order Details section -->
+                        <!-- ============================================================== -->
+                        <div class="card m-5 shadow-lg p-3 mb-5 bg-body rounded">
+                            <h5 class="card-header text-uppercase fw-bold bg-info ">Order Details</h5>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li
+                                            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                            <div>
+                                                Products({{orderDetails.productLength}} items)
+                                                <span><i style="position: absolute; left: 19em;"
+                                                        class="bi bi-currency-rupee"></i>
+                                                    <input type="int" name="orginalAmount"
+                                                        style="position: absolute; left: 20em;"
+                                                        value="{{orderDetails.price}}">
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li
+                                            class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                            <div>
+                                                Save amount
+                                                <span><i style="position: absolute; left: 19em;"
+                                                        class="bi bi-currency-rupee"></i>
+                                                    <input type="int" name="saveAmount"
+                                                        style="position: absolute; left: 20em;"
+                                                        value="{{orderDetails.saveAmount}}">
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li
+                                            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                            <div>
+                                                <strong>Total amount</strong>
+                                                <span><strong><i style="position: absolute; left: 19em;"
+                                                            class="bi bi-currency-rupee"></i>
+                                                        <input class="fw-bold" type="int" name="payAmount"
+                                                            style="position: absolute; left: 20em;"
+                                                            value="{{orderDetails.offerPrice}}">
+                                                    </strong></span>
+                                            </div>
+                                            {{!-- <input type="int" name="totalAmount" style="position: absolute;"
+                                                value="{{orderDetails.offerPrice}}"> --}}
+                                        </li>
+                                    </ul>
+
+                                    {{!-- <button type="button" class="btn btn-primary btn-lg btn-block">
+                                        Pay
+                                    </button> --}}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ============================================================== -->
+                        <!-- End order Details section -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Order Details section -->
+                        <!-- ============================================================== -->
+                        <div class="card m-5 shadow-lg p-3 mb-5 bg-body rounded">
+                            <h5 class="card-header text-uppercase fw-bold bg-info ">Payment Option</h5>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="paymentType" style="margin-top: 4px;"
+                                            type="radio" value="Cash On Delivery">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Cash On Delivery
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="paymentType" style="margin-top: 4px;"
+                                            value="UPI" type="radio">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            UPI
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn" class="btn text-uppercase"
+                                        style="background-color:rgb(255, 177, 32)" type="submit">Deliver here</button>
+                                </div>
+                            </div>
+                        </div>
+                        {{!-- return confirm('Are you select address and payment option?') --}}
+                        <!-- ============================================================== -->
+                        <!-- End order Details section -->
+                        <!-- ============================================================== -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $("#checkOut-form").submit((e) => {
+        e.preventDefault()
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Are you select address and payment option?",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'continue'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    url: '/saveOrder',
+                    method: 'post',
+                    data: $('#checkOut-form').serialize(),
+                    success: (response) => {
+
+                        if (response.codSuccess) {
+                            Swal.fire({
+                                title: 'Good job!',
+                                text: 'You clicked the button!',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'success'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.href = '/getAllOrder'
+                                }
+                            })
+
+                        } else {
+                            console.log("welcome else")
+                            razorpayPayment(response)
+                        }
+                    }
+                })
+            }
+        })
+
+    })
+
+    function razorpayPayment(order) {
+        console.log("welcome razorpayPayment")
+        var options = {
+            "key": "rzp_test_0iqaZqJFZvwqzX", // Enter the Key ID generated from the Dashboard
+            "amount": order.payAmount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Fashion",
+            "description": "Test Transaction",
+            "image": "https://example.com/your_logo",
+            "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+                verifyPayment(response, order)
+            },
+            // "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9999999999"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    }
+
+    function verifyPayment(payment, order) {
+        console.log("welcome verifyPayment")
+        $.ajax({
+            url: '/verifyPayment',
+            data: {
+                payment,
+                order
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    Swal.fire({
+                        title: 'Good job!',
+                        text: 'You clicked the button!',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'success'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.href = '/getAllOrder'
+                        }
+                    })
+                } else {
+                    alert(failed)
+                }
+            }
+        })
+    }
+</script>

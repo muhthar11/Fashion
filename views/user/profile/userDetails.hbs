@@ -1,0 +1,123 @@
+<section style="background-color: #eee;">
+  <div class="container py-5">
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="/images/login and register/businessman-character-avatar-isolated_24877-60111.jpg" alt="avatar"
+              class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{userDetails.name}}</h5>
+            <div class="d-flex justify-content-center mb-2">
+                <form action="/logout">
+                     <button type="button" class="btn text-white" style="background-color:red;">Logout</button>
+                </form>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-4 mb-lg-0">
+            <a href="/getAllOrder" class="text-primary text-uppercase fw-bold">
+                <div class="card-body text-center">
+                    my orders<i class="bi bi-arrow-right-circle-fill ms-1"></i>
+                </div>
+            </a>    
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <form action="/updateUser?id={{userDetails._id}}"  method="post" role="form">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Full Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <input id="editName" name="name" class=" mb-0"  value="{{userDetails.name}}" readonly>
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Phone</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <input id="editMobileNo" name="mobileNo" class=" mb-0"  value="{{userDetails.mobileNo}}" readonly>
+                    </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                    <div class="col-sm-3">
+                        <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                        <input id="editEmail" name="email" class=" mb-0"  value="{{userDetails.email}}" readonly>
+                    </div>
+                    </div>
+                    <hr>
+                    <button type="button" class="btn bg-success text-white" id="edits"  onclick="edit()">Edit</button>
+                    <button class="btn bg-primary  text-white"  type="submit" hidden id="update">Update</button> 
+                    <button class="btn text-white" style="background-color:red;" id="cancel"  hidden >Cancel</button> 
+                    {{!-- <div class="row">
+                    <div class="col-sm-3">
+                        <a  class="mb-0 fw-bold text-primary">Change Password</a>
+                    </div>
+                    </div> --}}
+                </div>
+            </div>   
+        </form>
+        <div class="row">
+          <div class="col-md-12">
+            <a class="d-flex m-2 me-3 mb-2" href="/getAddressPage?path=address" >
+                <button class="btn btn-primary text-white" type="submit">Add Address</button>
+            </a>
+                <div class="card-body"> 
+                {{#each address}}
+                    <div class="form-check">
+                        <input class="form-check-input" name="addressId" style="margin-top: 4px;" type="radio" value="{{this._id}}">
+                        <div class="card  shadow-md p-3 mb-2 bg-body rounded" >
+                            <div class="row ">
+                                <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-12 ">
+                                    {{this.firstName}}  {{this.lastName}}<br>
+                                    {{this.houseName}}<br>
+                                    {{this.roadName}}<br>
+                                    {{this.pincode}}<br>
+                                    {{this.district}}
+                                    {{this.state}}<br>
+                                    {{!-- <a href="/paymentMethod?addressId={{this._id}}" class="btn btn-warning text-white text-uppercases" type="submit">Deliver here</a> --}}
+                                </div>
+                                <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
+                                    <a href="/getAddress?id={{this._id}}&path=address" class="text-primary fw-bold">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+    function edit(){
+    const edits = document.getElementById('edits')
+    const update = document.getElementById('update')
+    const cancel = document.getElementById('cancel')
+    const editName = document.getElementById('editName')
+    const editMobileNo = document.getElementById('editMobileNo')
+    
+    edits.setAttribute('hidden','')
+    update.removeAttribute('hidden')
+    cancel.removeAttribute('hidden')
+    editName.removeAttribute('readonly')
+    editMobileNo.removeAttribute('readonly')
+    //const editEmail = document.getElementById('editEmail')
+    //editEmail.removeAttribute('readonly')
+    const edit = document.getElementById('edit')
+    edit.addAttribute('hidden')
+    }
+
+</script>

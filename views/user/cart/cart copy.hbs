@@ -1,0 +1,149 @@
+    <!-- ...:::: Start Cart Section:::... -->
+     <div class="container-fluid  dashboard-content">
+        <div class="row">
+
+         
+            {{!-- table start --}}
+             <div class="col-lg-12 col">
+                    <div class="cart-section m-1 shadow-md" >
+                        <!-- Start Cart Table -->
+                        <div class="table_desc">
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <!-- Start Cart Table Head -->
+                                    <thead>
+                                        <tr>
+                                            <th class="product_remove">Delete</th>  
+                                            <th class="product_thumb">Image</th>
+                                            <th class="product_name">Product</th>
+                                            <th class="product-price">Price</th>
+                                             <th class="product-price">Offer Price</th>
+                                            <th class="product_quantity">Quantity</th>
+                                            <th class="product_total">Total</th>
+                                        </tr>
+                                    </thead> <!-- End Cart Table Head -->
+                                    <tbody>
+                                        <!-- Start Cart Single Item-->
+                                        {{#each cartProduct}}
+                                            <tr>
+                                                <td class="product_remove"><a href="/deleteCart?id={{this._id}}"  onclick="return confirm('are you want to delete {{this.productName}} ?')"><i class="fa fa-trash-o"></i></a>
+                                                </td>
+                                                {{#each this.products}}
+                                                    <td class="product_thumb"><a href="/getSingleProductView?productId={{this._id}}">
+                                                    <img style="width: 50px " src="/uploadImage/{{this.image.[0]}}" alt="loading image"></a>
+                                                    </td>
+                                                    <td class="product_name"><a href="/getSingleProductView?productId={{this._id}}">
+                                                        {{this.productName}}</a>    
+                                                    </td>
+                                                {{/each}}    
+                                                <td class="product-price"><i class="bi bi-currency-rupee" ></i>  {{this.price}}</td>
+                                                <td class="product-price"><i class="bi bi-currency-rupee" ></i>  {{this.offerprice}}</td>
+                                                <td class="product_quantity">
+                                                    {{#if this.sub}}
+                                                    <a href="/subCount?count={{this.productCount}}&productId={{this.productId}}" ><i class="bi bi-dash-circle"></i></a>
+                                                    {{/if}}
+                                                     <input class="text-center" min="1" max="{{this.quantity}}" value="{{this.productCount}}">
+                                                    <a href="/addCount?count={{this.productCount}}&productId={{this.productId}}" ><i class="bi bi-plus-circle"></i></a>
+                                                </td>
+                                                <td class="product_total"><i class="bi bi-currency-rupee" ></i>  {{this.offer}}</td>
+                                            </tr>
+                                        {{/each}} 
+                                        <!-- End Cart Single Item-->
+                                    </tbody>
+                                </table>
+                            </div>
+                            {{!-- <div class="cart_submit">
+                                <a href="/getCheckOut" class="btn btn-md btn-golden" type="submit">place order</a>
+                            </div> --}}
+                        </div>
+                        <!-- End Cart Table -->
+                    </div> 
+            </div>
+            {{!-- table end --}}
+   
+            {{!-- total card end --}}
+         
+        </div>
+         <!-- Start Coupon Start -->
+        <div class="coupon_area">
+            <div class="container-fluid">
+                <form  id="applyCouponForm">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="coupon_code left" data-aos="fade-up" data-aos-delay="200">
+                                <h3>Coupon</h3>
+                                <div class="coupon_inner">
+                                    <p>Enter your coupon code if you have one.</p>
+                                    <input class="mb-2" placeholder="Coupon code" name="coupenCode" type="text" required>
+                                    <button type="submit" class="btn btn-md btn-golden">Apply coupon</button>
+                                </div>
+                                  <div class="card mb-4 mb-lg-0">
+                                    <a href="/getAllCoupons" class="text-primary text-uppercase fw-bold">
+                                        <div class="card-body text-center">
+                                            my Coupon<i class="bi bi-arrow-right-circle-fill "></i>
+                                        </div>
+                                    </a>    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="coupon_code right" data-aos="fade-up" data-aos-delay="400">
+                                <h3>Cart Totals</h3>
+                                <div class="coupon_inner">
+                                    <div class="cart_subtotal">
+                                        <p> Products ({{orderDetails.cartLength}}items)</p>
+                                        <p class="cart_amount"><i class="bi bi-currency-rupee" ></i>{{orderDetails.price}}</p>
+                                    </div>
+                                    <div class="cart_subtotal ">
+                                        <p> Save amount</p>
+                                        <p class="cart_amount"><i class="bi bi-currency-rupee" ></i> {{orderDetails.saveAmount}}</p>
+                                    </div>
+
+                                    <div class="cart_subtotal">
+                                        <p>Total amount</p>
+                                        <p class="cart_amount"><i class="bi bi-currency-rupee" ></i> {{orderDetails.offerPrice}}</p>
+                                        <input class="cart_amount" name="totalAmount" value="{{orderDetails.offerPrice}}" hidden>
+                                    </div>
+                                    <div class="checkout_btn">
+                                        <a href="/getCheckOut" class="btn btn-md btn-golden">Proceed to Checkout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>    
+            </div>
+        </div> <!-- End Coupon Start -->
+     </div>
+    <!-- ...:::: End Cart Section:::... -->
+
+<script src="https://unpkg.com/axios@0.25.0/dist/axios.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    
+ $("#applyCouponForm").submit(async(e) => { 
+        e.preventDefault()
+        let data =  $('#applyCouponForm').serialize();
+        await axios.post('/applayedUserStatus', data).then((res)=>{
+            console.log("res=",res.data)
+            if(res.data){
+                Swal.fire(
+                'Good job!',
+                'You clicked the button!',
+                'success'
+                )
+   
+            }else{
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'This coupon Alrady Use!',
+                footer: '<a href="">Why do I have this issue?</a>'
+                })
+            }
+  
+        })
+
+ })
+</script>

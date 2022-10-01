@@ -1,0 +1,59 @@
+ <div class="dashboard-wrapper py-4">
+    <div class="container-fluid  dashboard-content">
+        <div class="row">
+            <!-- ============================================================== -->
+            <!-- validation form -->
+            <!-- ============================================================== -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card mt-2">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
+                        <h5 class="card-header">Sub Category Details</h5>
+                    
+                    <div class="card-body">
+                        <form action="/admin/subCategory?id={{category._id}}&categoryId={{category.categoryId}}" id="subCategory" 
+                        method="post" role="form" enctype="multipart/form-data">
+                            <div class="row">
+                                 <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Category Name</label>
+                                    <input type="text" class="form-control" 
+                                        placeholder="Category Name" name="categoryName" value="{{category.categoryName}}" required readonly>
+                                </div>
+                                <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Sub Category Name</label>
+                                    <input type="text" class="form-control" 
+                                        placeholder="Sub Category Name" name="subCategoryName" value="{{category.subCategoryName}}" required>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                    {{!-- <img class="mb-2" style="width: 150px;" src="/uploadImage/{{product.image}}"  alt="..." id="imgView" > --}}
+                                    <label class="fw-bold">Sub Category Images</label>
+                                    <input type="file" class="form-control" placeholder="Sub Category Image1" name="image" value="" multiple >
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-5">
+                                    <button class="btn bg-primary" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end validation form -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+ </div>    
+ <script>
+
+    $("#subCategoryName").validate({
+        rules: {
+            subCategoryName: {
+                required: true,
+            },
+        },
+        messages: {
+            subCategoryName: {
+                required: "Please enter your sub category name",
+            },
+        }
+    });
+  </script>

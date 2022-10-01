@@ -1,0 +1,103 @@
+ <div class="dashboard-wrapper py-4">
+    <div class="container-fluid  dashboard-content">
+        <div class="row">
+            <!-- ============================================================== -->
+            <!-- validation form -->
+            <!-- ============================================================== -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
+                    <h5 class="card-header fw-bold text-uppercase">Coupon Details</h5>
+                    
+                    <div class="card-body">
+                         <form  action="/admin/saveCoupon" id="couponForm" method="post" role="form">
+                            <div class="row">
+
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="form-label fw-bold" >Greater Than Price</label>
+                                    <input type="text" name="greaterThanPrice"  class="form-control form-control-lg" value="{{coupon.greaterThanPrice}}" required/>
+                                </div>
+                                
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 " >
+                                    <label class="form-label fw-bold" >Discount Price</label>
+                                    <input type="text" name="discountPrice"  class="form-control form-control-lg" value="{{coupon.discountPrice}}" required/>
+                                </div>
+
+                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="form-label fw-bold" >Start Date</label>  
+                                    <input type="date" name="startDate"  class="form-control form-control-lg" value="{{coupon.startDate}}" required/>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="form-label fw-bold" >Expiry Date</label>  
+                                    <input type="date" name="expiryDate"  class="form-control form-control-lg" value="{{coupon.expiryDate}}" required/>
+                                </div>
+
+                                {{!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="form-label fw-bold" >Expiry Time</label>
+                                    <input type="time" name="expiryTime"  class="form-control form-control-lg" value="{{user.expiryTime}}" required/>
+                                </div> --}}
+
+                                {{!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 ">
+                                    <label class="form-label" >Expiry Date</label>  
+                                    <input type="date" name="expiryDate"  class="form-control form-control-lg" value="{{coupon.expiryDate}}" required/>
+                                </div> --}}
+
+                                <div class="form-row mt-4">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-5">
+                                            <a href="#">
+                                                <button class="btn bg-primary" type="">Save</button>
+                                            </a>
+                                        </div>  
+                                    </div>
+                                </div>    
+                          </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end validation form -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+ </div>    
+ <script>
+
+ // {{!-- ***** validation Start *****  --}}
+
+  $("#couponForm").validate({
+        rules: {
+            discountPrice: {
+                required: true,
+            },
+            greaterThanPrice: {
+                required: true,
+            },
+            expiryDate: {
+                required: true,
+            },
+            startDate: {
+                required: true,
+            }
+        },
+        messages: {
+            name: {
+                required: "Please enter discount price",
+            },
+            email: {
+                required: "Please enter greater than price",
+            },
+            expiryDate: {
+                required: "Please enter expiry date",
+            },
+            startDate: {
+                required: "Please enter expiry time",
+            },
+        }
+    });
+ 
+// {{!-- ***** validation End *****  --}}
+</script>
+
+
+    

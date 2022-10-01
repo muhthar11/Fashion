@@ -1,0 +1,160 @@
+
+
+  <div class="container-fluid  dashboard-content">
+        <div class="row">
+            <!-- ============================================================== -->
+            <!-- validation form -->
+            <!-- ============================================================== -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card m-5 shadow-lg p-3 mb-5 bg-body rounded" >
+                    
+                    <div class="card-body">
+                            <div class="card mb-4">
+                                <div class="card-header py-3">
+                                    <h5 class="mb-0 text-uppercase fw-bold">Biling Address</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form action="/saveAddress?id={{address._id}}&path={{path}}" id="address" method="post" role="form">
+                                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" id="form7Example1" name="firstName" value="{{address.firstName}}" class="form-control" />
+                                                    <label class="form-label" for="form7Example1">First name</label>
+                                                </div>
+                                                </div>
+                                                <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" id="form7Example2" name="lastName" value="{{address.lastName}}" class="form-control" />
+                                                    <label class="form-label" for="form7Example2">Last name</label>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Text input -->
+                                            <div class="form-outline mb-4">
+                                                <input type="text" id="form7Example3" name="roadName" value="{{address.roadName}}" class="form-control" />
+                                                <label class="form-label" for="form7Example3">Road Name, Area </label>
+                                            </div>
+
+                                            <!-- Text input -->
+                                           <div class="row mb-4">
+                                                <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" id="form7Example1"  name="phoneNumber" value="{{address.phoneNumber}}" class="form-control" />
+                                                    <label class="form-label" for="form7Example1">Phone Number</label>
+                                                </div>
+                                                </div>
+                                                <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" id="form7Example2" name="houseName" value="{{address.houseName}}" class="form-control" />
+                                                    <label class="form-label" for="form7Example2">House Name</label>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Email input -->
+                                            <div class="row mb-4">
+                                                <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" id="form7Example1" name="district" value="{{address.district}}" class="form-control" />
+                                                    <label class="form-label" for="form7Example1">District</label>
+                                                </div>
+                                                </div>
+                                                <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" id="form7Example2" name="state"  value="{{address.state}}" class="form-control" />
+                                                    <label class="form-label" for="form7Example2">State</label>
+                                                </div>
+                                                </div>
+                                                <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" id="form7Example2" name="pincode"  value="{{address.pincode}}" class="form-control" />
+                                                    <label class="form-label" for="form7Example2">Pincode</label>
+                                                </div>
+                                                </div>
+                                                    <!-- Message input -->
+                                                <div class="form-outline mb-4">
+                                                    <textarea class="form-control" name="additionalInformation" value="{{address.additionalInformation}}" id="form7Example7" rows="4"></textarea>
+                                                    <label class="form-label" for="form7Example7">Additional information</label>
+                                                </div>
+                                                 <div class="pt-1 mb-4">
+                                                    <button class="btn bg-primary btn-lg btn-block"  type="submit">Save</button>
+                                                </div>
+                                    </form>
+                                </div>
+                                </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end validation form -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+    <script>
+        $("#address").validate({
+            rules: {
+                firstName: {
+                    required: true,
+                },
+                lastName: {
+                    required: true,
+                },
+                roadName: {
+                    required: true,
+                },
+                phoneNumber: {
+                    required: true,
+                },
+                houseName: {
+                    required: true,
+                },
+                city: {
+                    required: true,
+                },
+                state: {
+                    required: true,
+                },
+                pincode: {
+                    required: true,
+                }
+
+            },
+            messages: {
+          
+                email: {
+                    required: "Please enter your EmailID",
+                    email: "Enter a valid Email ID",
+                    noCaps: "Only lower case"
+                },
+                password: {
+                    required: "Please enter your password",
+                },
+                firstName: {
+                    required: "Please enter your first name",
+                },
+                lastName: {
+                    required: "Please enter your last name",
+                },
+                roadName: {
+                    required: "Please enter your road name",
+                },
+                phoneNumber: {
+                    required: "Please enter your phone number",
+                },
+                houseName: {
+                    required: "Please enter your house name",
+                },
+                city: {
+                     required: "Please enter your city",
+                },
+               state: {
+                    required: "Please enter your state",
+                },
+                pincode: {
+                    required: "Please enter your state",
+                }
+            }
+        });
+ </script>

@@ -1,0 +1,47 @@
+
+   {{!-- <div class="card m-5 shadow-lg p-3 mb-5 bg-body rounded"  style="height:500px ; overflow:scroll; overflow-x:hidden" > --}}
+        <div class="card-body">
+             <div class="cart-section m-3  ">
+                <!-- Start Cart Table -->
+                <div class="table_desc">
+                    <div class="table_page table-responsive">
+                        <table>
+                            <!-- Start Cart Table Head -->
+                            <thead>
+                                <tr> 
+                                    <th >Date</th>
+                                    <th >Amount</th>
+                                    <th >Save Amount</th>
+                                    <th >Coupon</th>
+                                    <th >Payment</th>
+                                    <th class="product_quantity">Payment Status</th>
+                                    <th >Details</th>
+                                </tr>
+                            </thead> <!-- End Cart Table Head -->
+                            <tbody>
+                                <!-- Start Cart Single Item-->
+                                {{#each order}}
+                                    <tr>
+                                        <td >{{format this.date}}</td>
+                                        <td ><i class="bi bi-currency-rupee" ></i>  {{this.payAmount}}</td>
+                                        <td ><i class="bi bi-currency-rupee" ></i>  {{this.saveAmount}}</td>
+                                        <td ><i class="bi bi-currency-rupee" ></i>  {{this.couponAmount}}</td>
+                                        <td >{{this.paymentType}}</td>
+                                        <td >{{this.paymentStatus}}</td>
+                                        <td >
+                                            <a href="/getOrder?orderId={{this._id}}"
+                                               class="btn btn-md btn-golden" type="submit">order details</a>
+                                        </td>
+                                    </tr>
+                                {{/each}} 
+                                <!-- End Cart Single Item-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- End Cart Table -->
+            </div> 
+        </div>
+   {{!-- </div>    --}}
+
+    

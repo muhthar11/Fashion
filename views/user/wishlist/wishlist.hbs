@@ -1,0 +1,68 @@
+    <!-- ...:::: Start Cart Section:::... -->
+    <div class="cart-section m-5">
+        <!-- Start Cart Table -->
+        <div class="cart-table-wrapper" data-aos="fade-up" data-aos-delay="0">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-12">
+                        <div class="table_desc">
+                            <div class="table_page table-responsive">
+                                <table>
+                                    <!-- Start Cart Table Head -->
+                                    <thead>
+                                        <tr>
+                                            <th class="product_remove">Delete</th>  
+                                            <th class="product_thumb">Image</th>
+                                            <th class="product_name">Product</th>
+                                            <th class="product-price">Price</th>
+                                            <th class="product-price">Offer Price</th>
+                                            <th class="product_stock">Stock Status</th>
+                                            <th class="product_addcart">Add To Cart</th>
+                                        </tr>
+                                    </thead> <!-- End Cart Table Head -->
+                                    <tbody>
+                                            <!-- Start Cart Single Item-->
+                                        {{#each wishlistProduct}}
+                                             <form action="/addCart?productId={{this.productId}}&sizeId={{this.sizeId}}"  id="loginUpForm" method="post" role="form">
+
+                                                <tr>
+                                                    <td class="product_remove"><a href="/deleteWishlist?id={{this._id}}"><i class="fa fa-trash-o"></i></a>
+                                                    </td>
+                                                    {{#each this.products}}
+                                                        <td class="product_thumb"><a href="/getSingleProductView?productId={{this._id}}">
+                                                        <img class="ms-5" style="width: 50px " src="/uploadImage/{{this.image.[0]}}" alt="loading image"></a>
+                                                        </td>
+                                                        <td class="product_name"><a href="/getSingleProductView?productId={{this._id}}">
+                                                            {{this.productName}}</a>    
+                                                        </td>
+                                                    {{/each}}    
+                                                    <td ><input class="text-center" name="price" type="text" value="{{this.price}}"></td>
+                                                    <td ><input class="text-center" name="offerprice" type="text" value="{{this.offerprice}}"></td>
+                                                    {{#if this.status}}
+                                                        <td class="product_stock text-info">In Stock</td>
+                                                    {{else}}
+                                                        <td class="product_stock text-danger">Out Of Stock</td>
+                                                    {{/if}}   
+                                                    <td class="product_addcart">
+                                                        <button class="btn btn-md btn-golden"   type="submit">+ Add To Cart</button>
+                                                    </td>
+                                                </tr>
+                                                
+                                            </form>  
+                                        {{/each}} 
+                                            <!-- End Cart Single Item-->
+                                             
+                                    </tbody>
+                                </table> 
+                            </div>
+                            {{!-- <div class="cart_submit">
+                                <button class="btn btn-md btn-golden" type="submit">update cart</button>
+                            </div> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <!-- End Cart Table -->
+    </div> 
+    <!-- ...:::: End Cart Section:::... -->

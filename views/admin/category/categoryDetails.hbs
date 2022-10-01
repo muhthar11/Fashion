@@ -1,0 +1,58 @@
+ <div class="dashboard-wrapper py-4">
+    <div class="container-fluid  dashboard-content">
+        <div class="row">
+            <!-- ============================================================== -->
+            <!-- validation form -->
+            <!-- ============================================================== -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"></div>
+                    <h5 class="card-header">Category Details</h5>
+                    
+                    <div class="card-body">
+                        <form action="/admin/category?id={{category._id}}" id="category" method="post" role="form" enctype="multipart/form-data" >
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                                    <label class="fw-bold">Category Name</label>
+                                    <input type="text" class="form-control" 
+                                        placeholder="Category Name" name="categoryName" value="{{category.categoryName}}" required>
+                                </div>
+                                <div class="col-xl-6 col-lg-4 col-md-12 col-sm-12 col-12 ">
+                                    {{!-- <img class="mb-2" style="width: 150px;" src="/uploadImage/{{product.image}}"  alt="..." id="imgView" > --}}
+                                    <label class="fw-bold">Category Image1</label>
+                                    <input type="file" class="form-control" placeholder="Category Image1" name="image" value="" multiple >
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt-5">
+                                    <button class="btn bg-primary" type="submit">Save</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end validation form -->
+            <!-- ============================================================== -->
+        </div>
+    </div>
+ </div>    
+ <script>
+
+    function viewImage(){
+      document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+     }
+
+
+    $("#category").validate({
+        rules: {
+            categoryName: {
+                required: true,
+            },
+        },
+        messages: {
+            categoryName: {
+                required: "Please enter your category name",
+            },
+        }
+    });
+  </script>
