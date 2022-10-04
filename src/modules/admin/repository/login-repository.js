@@ -85,5 +85,72 @@ module.exports={
           console.log("paymentStatusCount =",paymentStatusCount)
             resolve(paymentStatusCount);
         })
-      }
+      },
+
+     ///category wised
+     
+      getAllDeliveryStatus:()=>{
+        return new Promise(async(resolve,reject)=>{
+          let orderDelivery=await db.get().collection(collections.ORDER_CALLECTION).
+          aggregate( [
+            {
+              $unwind : "$product"
+            },
+            // {
+            //   $project: {  "product.orderStatus.status": 1,"product.productId":1 ,_id: 0 } 
+            // },
+            {
+              $match: {  "product.orderStatus.status": "Delivered" } 
+            },
+            {
+            $lookup:
+              {
+                  from: collections.PRODUCT_COLLECTION,
+                  localField: "product.productId",
+                  foreignField: "_id",
+                  as: "singleProduct"
+              }
+            },
+            {
+              $lookup:
+                {
+                    from: collections.category_COLLECTION,
+                    localField: "singleProduct.category",
+                    foreignField: "_id",
+                    as: "category"
+                }
+            },
+            {
+              $match: {"category.recordStatusId": 1} 
+            },
+            {
+              $project: {  "category.categoryName": 1,"singleProduct._id": 1,"singleProduct.offerPrice": 1} 
+            },
+         ] ).toArray();
+          console.log("orderDelivery =",orderDelivery)
+          let orderDeliveryStatus={}
+          orderDeliveryStatus.totalDeliveryPrice = 0;
+          orderDeliveryStatus.menCount = 0;
+          orderDeliveryStatus.womenCount = 0;
+          orderDeliveryStatus.kidsCount = 0;
+          for(let i=0;i<orderDelivery.length;i++){
+              console.log("welcome category==",orderDelivery[i].singleProduct[0].offerPrice)
+              console.log("welcome category==",orderDelivery[i].category[0].categoryName)
+
+             
+              orderDeliveryStatus.totalDeliveryPrice += Number(orderDelivery[i].singleProduct[0].offerPrice);
+
+              if(orderDelivery[i].category[0].categoryName == "Men"){
+                orderDeliveryStatus.menCount += 1;
+              }
+              else if(orderDelivery[i].category[0].categoryName == "Women"){
+                orderDeliveryStatus.womenCount += 1;
+              }else if(orderDelivery[i].category[0].categoryName == "Kids"){
+                orderDeliveryStatus.kidsCount += 1;
+              }
+          }
+          console.log("orderDeliveryStatus",orderDeliveryStatus)
+          resolve(orderDeliveryStatus)
+        })
+      },
 }

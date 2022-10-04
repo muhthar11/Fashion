@@ -12,5 +12,9 @@ module.exports={
 
     getAllPaymentStatus:async()=>{
     return loginRepository.getAllPaymentStatus()
-    }
+    },
+
+    getAllDeliveryStatus:async()=>{
+        return loginRepository.getAllDeliveryStatus()
+    },
 }

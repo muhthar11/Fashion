@@ -47,15 +47,18 @@ module.exports ={
             productServices.getAllProducts().then((product)=>{
               loginServices.getAllOrderStatus().then((orderStatus)=>{
                 loginServices.getAllPaymentStatus().then((paymentStatus)=>{
-                    console.log("orderStatus=",orderStatus)
-                    dashbord.totalUsers = user.length
-                    dashbord.totalOrders =order.length
-                    dashbord.totalProducts =product.length
-                    dashbord.orderStatus=orderStatus
-                    dashbord.paymentStatus=paymentStatus
-                    console.log("dashbord == ", dashbord)
-        
-                    res.render('admin/dashbord/home', {admin:true,adminName:req.session.admin ,dashbord});
+                    loginServices.getAllDeliveryStatus().then((deliveryStatus)=>{
+                      console.log("orderStatus=",orderStatus)
+                      dashbord.totalUsers = user.length
+                      dashbord.totalOrders =order.length
+                      dashbord.totalProducts =product.length
+                      dashbord.orderStatus=orderStatus
+                      dashbord.paymentStatus=paymentStatus
+                      dashbord.deliveryStatus=deliveryStatus//category wise
+                      console.log("dashbord == ", dashbord)
+          
+                      res.render('admin/dashbord/home', {admin:true,adminName:req.session.admin ,dashbord});
+                    })
                   })  
                })
             })

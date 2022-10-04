@@ -168,7 +168,7 @@ module.exports ={
                   console.log("orderId:",result.insertedId)
                   orderId = result.insertedId
                   orderServices.generateRazorpay(orderId,req.body).then((order)=>{
-                    console.log("Order generateRazorpay ==",order)
+                    console.log("Order generateRazorpay 1==",order)
                     res.json(order)
                   })
                 }
@@ -208,7 +208,7 @@ module.exports ={
                   console.log("orderId:",result.insertedId)
                   orderId = result.insertedId
                   orderServices.generateRazorpay(orderId,req.body).then((order)=>{
-                    console.log("Order generateRazorpay ==",order)
+                    console.log("Order generateRazorpay 2==",order)
                     req.session.couponCode ="";
                     res.json(order)
                   })
