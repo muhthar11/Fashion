@@ -2,8 +2,11 @@
   "name": "e-commerce-project1",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "12.11.1"
+  },
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
