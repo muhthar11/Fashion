@@ -39,6 +39,7 @@ module.exports={
                     to:`+91${userData.mobileNo}`,
                     channel:"sms"
                   }).then((response)=>{
+                    console.log("muhthar")
                     resolve(response);
                 })
               

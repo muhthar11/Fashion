@@ -140,7 +140,8 @@ module.exports ={
       if(req.session.user){
          console.log("muhthar")
          req.session.user = '';
-        //  req.session.destroy();
+         req.session.userId ='';
+         // req.session.destroy();
          res.redirect('/');
       }
     }catch(err){
@@ -150,15 +151,15 @@ module.exports ={
 
   getUserProfile: async (req,res)=>{
     try{
-        user = req.session.userId;
-        categoryServices.getAllCategorys().then((data)=>{
-            userServices.getUser(user).then((userDetails)=>{
-              addressServices.getAllAddress(user).then((address)=>{
-                console.log("user == ",userDetails)
-                res.render('user/profile/userDetails', {data,userDetails,address});
+          user = req.session.userId;
+          categoryServices.getAllCategorys().then((data)=>{
+              userServices.getUser(user).then((userDetails)=>{
+                addressServices.getAllAddress(user).then((address)=>{
+                  console.log("user == ",userDetails)
+                  res.render('user/profile/userDetails', {data,userDetails,address});
+                })
               })
-            })
-         })
+          })
     }catch(err){
       console.log(err)
     }
