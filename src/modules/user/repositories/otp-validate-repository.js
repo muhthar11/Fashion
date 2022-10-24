@@ -5,9 +5,6 @@ const { response } = require('../../../../app');
 const objectId =require('mongodb').ObjectId;
 
 let config ={
-    // serviceSID:'VAdb46b7d4dfa7d8178f1e0f312abaae26',
-    // accountSID:'ACd00190493e2217e1af9cd2d7fc94725a',
-    // authToken:'7cc3e662d14ca388d2e1132e4ffb52f4'
     serviceSID:process.env.serviceSID,
     accountSID:process.env.accountSID,
     authToken:process.env.authToken
