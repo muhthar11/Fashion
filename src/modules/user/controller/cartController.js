@@ -17,29 +17,17 @@ module.exports ={
       productId = req.query.productId;
       if(req.session.user){
         userId= req.session.userId;
-        
+        loginCheck = req.session.user
+      
         categoryServices.getAllCategorys().then((data)=>{
-            // size = singleProduct[0].sizeResult;
-            // singleProduct=singleProduct[0];
-            // if(req.query.sizeId != undefined){
-            //   sizeId = req.query.sizeId;
-            // }
-            // else{
-            //   sizeId = size[0]._id
-            // }
-            //   productServices.getQuantity(sizeId,productId).then((quantity)=>{
 
              cartServices.addCart(productId,req.body,userId).then((result)=>{
                 productServices.getSingleProduct(productId,userId).then((singleProduct)=>{
                   console.log("cartStatus=",singleProduct.status)
                   cartStatus = singleProduct.status;
-                    res.render('user/product/singleProductView',{data,singleProduct,cartStatus});
+                    res.render('user/product/singleProductView',{data,singleProduct,cartStatus,loginCheck});
                 })
 
-                  //   .catch((err)=>{
-                  //     res.render('user/product/singleProductView',{data,singleProduct,size,quantity,sizeId,err});
-                  //  })
-            //    })
             })
         }) 
       }
@@ -56,6 +44,7 @@ module.exports ={
     try{
       if(req.session.user){
       userId = req.session.userId;
+      loginCheck = req.session.user
       categoryServices.getAllCategorys().then((data)=>{
          cartServices.getCart(userId).then((cartProduct)=>{
           //quanti max set cheyyan
@@ -87,7 +76,7 @@ module.exports ={
             console.log("orderDetails=",orderDetails)
             console.log("cartProduct=",cartProduct.length)
             if(cartProduct.length != 0){
-              res.render('user/cart/cart',{data,cartProduct,orderDetails}); 
+              res.render('user/cart/cart',{data,cartProduct,orderDetails,loginCheck}); 
             }
             else{
               res.render('user/cart/emptyCart',{data}); 
@@ -106,6 +95,7 @@ module.exports ={
   deleteCart: async (req,res,next)=>{
     try{
       if(req.session.user){
+        loginCheck = req.session.user
         cartServices.deleteCart(req.query.id).then((result)=>{
             if(req.query.order){
               res.redirect("/getCheckOut");
@@ -116,7 +106,7 @@ module.exports ={
         })
       }
       else{
-        res.render('partials/user-login',{login:true,productId});
+        res.render('partials/user-login',{login:true,productId,loginCheck});
       }
     }catch(err){
       console.log(err)
@@ -132,6 +122,7 @@ module.exports ={
       productCount =Number(req.query.count)+1;
       if(req.session.user){
         userId= req.session.userId;
+        loginCheck = req.session.user
              cartServices.count(productId,productCount,userId).then((result)=>{
               if(req.query.order){
                 res.redirect("/getCheckOut");
@@ -142,7 +133,7 @@ module.exports ={
               })
       }
       else{
-        res.render('partials/user-login',{login:true,productId});
+        res.render('partials/user-login',{login:true,productId,loginCheck});
       }
     }catch(err){
       console.log(err)
@@ -155,6 +146,7 @@ module.exports ={
       productCount =Number(req.query.count)-1;
       if(req.session.user){
         userId= req.session.userId;
+        loginCheck = req.session.user
              cartServices.count(productId,productCount,userId).then((result)=>{
               if(req.query.order){
                 res.redirect("/getCheckOut");
@@ -165,7 +157,7 @@ module.exports ={
               })
       }
       else{
-        res.render('partials/user-login',{login:true,productId});
+        res.render('partials/user-login',{login:true,productId,loginCheck});
       }
     }catch(err){
       console.log(err)

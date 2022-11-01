@@ -260,12 +260,12 @@
         </div>
         <!-- End Mobile contact Info -->
     </div> 
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas offcanvas-end" style="background-color:black ;" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasRightLabel"></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <h3 class="offcanvas-title text-uppercase fw-bold " style="color:white ;"   id="offcanvasRightLabel" >FashionZone
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" style="background-color:white; margin-left:50px"  aria-label="Close"></button></h3>
         </div>
-        <div class="offcanvas-body">
+        <div class="offcanvas-body ">
             <ul class="social-link">
                 <li class="mb-3">
                     <a href="/userProfile">
@@ -292,11 +292,13 @@
                         <i class="ti-email"></i> My Order
                     </a>
                 </li>
+                {{#if loginCheck}}
                 <li class="mb-3">
                     <a href="/logout">
                         <i class="ti-layout-sidebar-left"></i> Logout
                     </a>
                 </li>
+                {{/if}}
             </ul>
         </div>
     </div>

@@ -12,10 +12,11 @@ module.exports ={
   getAllCoupons: async (req,res)=>{
     try{
       if(req.session.user){
+        loginCheck = req.session.user
         categoryServices.getAllCategorys().then((data)=>{
           couponServices.getAllCoupons().then((coupons)=>{
               console.log("coupons ==",coupons)
-              res.render('user/coupon/couponList', {data,coupons});
+              res.render('user/coupon/couponList', {data,coupons,loginCheck});
             })
           })
       }
@@ -65,6 +66,7 @@ module.exports ={
     try{
       if(req.session.user){
         console.log("Welcome Coupon")
+        loginCheck = req.session.user
         couponCode = req.session.couponCode;
         userId = req.session.userId;
         console.log("couponCod11==e",couponCode)
@@ -108,7 +110,7 @@ module.exports ={
                           orderDetails.saveAmount =orderDetails.price -  orderDetails.offerPrice 
                           console.log("orderDetails ==",orderDetails)
                           console.log("address=",address)
-                          res.render('user/order/checkOut', {data,address,orderDetails,cartProduct});
+                          res.render('user/order/checkOut', {data,address,orderDetails,cartProduct,loginCheck});
                   })
                })  
             })

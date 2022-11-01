@@ -9,12 +9,13 @@ module.exports ={
     try{
       path =req.query.path
       if(req.session.user){
+        loginCheck = req.session.user
         addressId = req.query.id
         userId = req.session.userId;
         categoryServices.getAllCategorys().then((data)=>{
             addressServices.getAddress(addressId).then((address)=>{
               console.log("Adress ==",address)
-              res.render('user/order/addressDetails', {data,address,path});
+              res.render('user/order/addressDetails', {data,address,path,loginCheck});
             })
           })
       }

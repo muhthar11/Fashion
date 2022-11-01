@@ -10,6 +10,7 @@ module.exports ={
   getCategoryList: async (req,res)=>{
     try{
       if(req.session.user){
+        loginCheck = req.session.user
         categoryServices.getAllCategorys().then((data)=>{
           res.render('user/home/home',{loginCheck,data});
         })

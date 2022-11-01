@@ -15,6 +15,7 @@ module.exports ={
       if(req.session.user){
           console.log("welcome cart")
           userId =  req.session.userId;
+          loginCheck = req.session.user
           categoryServices.getAllCategorys().then((data)=>{
               addressServices.getAllAddress(userId).then((address)=>{
                 cartServices.getCart(userId).then((cartProduct)=>{
@@ -47,7 +48,7 @@ module.exports ={
                     orderDetails.single = false;
                     console.log("orderDetails in order cart=",orderDetails)
                     console.log("address=",address)
-                  res.render('user/order/checkOut', {data,address,orderDetails,cartProduct});
+                  res.render('user/order/checkOut', {data,address,orderDetails,cartProduct,loginCheck});
                 })
               })
             })
@@ -65,6 +66,7 @@ module.exports ={
     try{
       console.log("req.session.user=",req.session.user)
       if(req.session.user){
+        loginCheck = req.session.user
         userId= req.session.userId;
         orderId = req.query.orderId;
         console.log("req.body ==",req.body)
@@ -79,7 +81,7 @@ module.exports ={
                address = order[0].address
                let orderId = order[0]._id
               console.log("welcome order controll :=",order)
-              res.render('user/order/orderDetails',{data,order,address,orderId});
+              res.render('user/order/orderDetails',{data,order,address,orderId,loginCheck});
             })
         })
       }
@@ -97,11 +99,12 @@ module.exports ={
       console.log("req.session.user=",req.session.user)
       if(req.session.user){
         userId= req.session.userId;
+        loginCheck = req.session.user
         console.log("req.body ==",req.body)
         categoryServices.getAllCategorys().then((data)=>{
            orderServices.getAllOrder(userId).then((order)=>{
             console.log("welcome order controll :=",order)
-              res.render('user/order/orderList',{data,order});
+              res.render('user/order/orderList',{data,order,loginCheck});
            })
         })
       }
@@ -117,7 +120,6 @@ module.exports ={
     try{
       console.log("req.session.user=",req.session.user)
       if(req.session.user){
-
         userId= req.session.userId;
         couponCode = req.session.couponCode;
         console.log("req.body ==",req.body)

@@ -14,7 +14,6 @@ module.exports ={
       if(req.session.user){
 
         userId= req.session.userId;
-        
         categoryServices.getAllCategorys().then((data)=>{
           productServices.getSingleProduct(productId,userId).then((singleProduct)=>{          
                 console.log("singleProduct=",singleProduct)
@@ -41,6 +40,7 @@ module.exports ={
   getWishlist: async (req,res)=>{
     try{
       if(req.session.user){
+      loginCheck = req.session.user
       userId = req.session.userId;
       categoryServices.getAllCategorys().then((data)=>{
         wishlistServices.getWishlist(userId).then((wishlistProduct)=>{
@@ -53,7 +53,7 @@ module.exports ={
               }
               console.log("wishlistProduct=",wishlistProduct)
               if(wishlistProduct.length != 0){
-                res.render('user/wishlist/wishlist',{data,wishlistProduct});
+                res.render('user/wishlist/wishlist',{data,wishlistProduct,loginCheck});
               }
               else{
                 res.render('user/wishlist/emptyWishlist',{data}); 
@@ -73,6 +73,7 @@ module.exports ={
   deleteWishlist: async (req,res,next)=>{
     try{
       if(req.session.user){
+        loginCheck = req.session.user
         wishlistServices.deleteWishlist(req.query.id).then((result)=>{
           userId = req.session.userId;
             categoryServices.getAllCategorys().then((data)=>{
@@ -85,7 +86,7 @@ module.exports ={
                          wishlistProduct[i].status = true
                     }
                   }
-                      res.render('user/wishlist/wishlist',{data,wishlistProduct});
+                      res.render('user/wishlist/wishlist',{data,wishlistProduct,loginCheck});
                 })
             })
         })
